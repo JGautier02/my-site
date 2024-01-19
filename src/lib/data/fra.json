@@ -1,0 +1,24 @@
+{
+    "nav": {
+        "home": "Accueil",
+        "about": "A propos",
+        "projects": "Projets",
+        "contact": "Contact"
+    },
+    "welcome": {
+        "title1": "Bienvenue, je suis",
+        "title2": "Jérôme Gautier",
+        "p1": "Un développeur web français compétent en front-end et back-end, ma passion est de créer des solutions personnalisées et évolutives pour des clients exigeants."
+    },
+    "about": {
+        "title": "A propos"
+    },
+    "projects": {
+        "title": "Projets"
+    },
+    "contact": {
+        "title": "Contact"
+    },
+    "footer": {
+    }
+}

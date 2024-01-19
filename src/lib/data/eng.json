@@ -1,0 +1,24 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About me",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "welcome": {
+        "title1": "Welcome, I am",
+        "title2": "Jérôme Gautier",
+        "p1": "A french web developper competent with both front-en and back-end technologies, who likes to create customised and scalable solutions for exigent clients."
+    },
+    "about": {
+        "title": "About"
+    },
+    "projects": {
+        "title": "Projects"
+    },
+    "contact": {
+        "title": "Contact"
+    },
+    "footer": {
+    }
+}

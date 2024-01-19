@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: "calibril";
+    src: local("calibril"),
+    url("/fonts/calibril.ttf") format("TrueType");
+}
+
+@font-face {
+    font-family: "lusitana";
+    src: local("lusitana"),
+    url("/fonts/Lusitana-Regular.ttf") format("TrueType");
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+ul {
+    list-style: none;
+}
