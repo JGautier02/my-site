@@ -205,7 +205,7 @@ Language selection
 Navbar
 ************/
     nav {
-        background-color: #1F2041;
+        background-color: var(--primary-color);
         color: #fff;
         font-size: 18px;
     }
@@ -260,12 +260,12 @@ Navbar
 
     .navbar-sticky .nav-link.active {
         background-color: #fff;
-        color: #FFC857;
+        color: var(--tertiary-text);
     }
 
     nav a:hover {
         transition: all 0.5s ease-in-out;
-        color: #FFC857;
+        color: var(--tertiary-text);
     }
 
 /************
@@ -280,18 +280,21 @@ Mobile Navbar
         height: 60px;
         top: 0;
         left: 0;
-        background-color: #1F2041;
+        background-color: var(--primary-color);
         z-index: 1000;
     }
 
     .mobile-navbar .menu-container .menu-icon {
+        display: flex;
+        width: 80px;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
     }
 
     .mobile-navbar .menu-icon img {
-        padding-right: 20px;
         height: 40px;
-        width: "auto"
+        width: 40px;
     }
 
     .mobile-navbar ul {
