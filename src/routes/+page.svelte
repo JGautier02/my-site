@@ -1,6 +1,7 @@
 <script>
     import Navbar from "$lib/components/navbar.svelte";
-
+    
+    import { fade } from "svelte/transition";
     import { inview } from "svelte-inview";
 
     import { langTable, currentLang } from "../store";
@@ -70,7 +71,7 @@
 
         <Navbar homeHeight={homeHeight} y={y} isInView={isInView} />
 
-</div>
+    </div>
 </section>
 
 <section class="about-me" id="about-me" use:inview={options} on:inview_enter={() => handleInView("about")}>
@@ -132,41 +133,54 @@
             <button on:click={() => handleSelect("personal")}>Personal</button>
             <div class={`underline ${selectedTab === "personal" && "active"}`}></div>
         </div>
-        
     </div>
-    <div class="project-container">
-        <a class="preview" href="https://axiantis.com/" target="_blank">
-            <img src={axiantisImg} alt="Axiantis website preview" />
-        </a>
-        <div class="content">
-            <h3><a href="https://axiantis.com/" target="_blank">Axiantis</a></h3>
-            <p>Made with Sveltekit with speed and SEO in mind.</p>
+
+    {#if selectedTab === "professional"}
+    <div transition:fade={{ delay: 250, duration: 300 }}>
+        <div class="project-container">
+            <a class="preview" href="https://axiantis.com/" target="_blank">
+                <img src={axiantisImg} alt="Axiantis website preview" />
+            </a>
+            <div class="content">
+                <h3><a href="https://axiantis.com/" target="_blank">Axiantis</a></h3>
+                <p>Made with Sveltekit with speed and SEO in mind.</p>
+            </div>
+        </div>
+
+        <div class="separation"></div>
+
+        <div class="project-container">
+            <a class="preview" href="https://axiantis.com/" target="_blank">
+                <img src={axiantisImg} alt="Axiantis website preview" />
+            </a>
+            <div class="content">
+                <h3><a href="https://axiantis.com/" target="_blank">Axiantis</a></h3>
+                <p>Made with Sveltekit with speed and SEO in mind.</p>
+            </div>
+        </div>
+
+        <div class="separation"></div>
+
+        <div class="project-container">
+            <a class="preview" href="https://axiantis.com/" target="_blank">
+                <img src={axiantisImg} alt="Axiantis website preview" />
+            </a>
+            <div class="content">
+                <h3><a href="https://axiantis.com/" target="_blank">Axiantis</a></h3>
+                <p>Made with Sveltekit with speed and SEO in mind.</p>
+            </div>
         </div>
     </div>
 
-    <div class="separation"></div>
-
-    <div class="project-container">
-        <a class="preview" href="https://axiantis.com/" target="_blank">
-            <img src={axiantisImg} alt="Axiantis website preview" />
-        </a>
-        <div class="content">
-            <h3><a href="https://axiantis.com/" target="_blank">Axiantis</a></h3>
-            <p>Made with Sveltekit with speed and SEO in mind.</p>
+    {:else if selectedTab === "personal"}
+    <div class="flex-column-container">
+        <div>These are personal projects that I worked on to pass my web developer accreditations or for my own use</div>
+        <div class="project-container">
+            
         </div>
     </div>
+    {/if}
 
-    <div class="separation"></div>
-
-    <div class="project-container">
-        <a class="preview" href="https://axiantis.com/" target="_blank">
-            <img src={axiantisImg} alt="Axiantis website preview" />
-        </a>
-        <div class="content">
-            <h3><a href="https://axiantis.com/" target="_blank">Axiantis</a></h3>
-            <p>Made with Sveltekit with speed and SEO in mind.</p>
-        </div>
-    </div>
 </section>
 
 <section class="contact" id="contact" use:inview={options} on:inview_enter={() => handleInView("contact")}>
@@ -203,6 +217,13 @@
         --primary-text: #fff;
         --secondary-text: #14191b;
         --tertiary-text: #FFC857;
+    }
+
+    .flex-column-container {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
     }
 
     .home {
