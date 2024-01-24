@@ -1,7 +1,7 @@
 {
     "nav": {
         "home": "Accueil",
-        "about": "A propos",
+        "about": "À propos",
         "projects": "Projets",
         "contact": "Contact"
     },
@@ -11,13 +11,26 @@
         "p1": "Un développeur web français compétent en front-end et back-end, ma passion est de créer des solutions personnalisées et évolutives pour des clients exigeants."
     },
     "about": {
-        "title": "A propos"
+        "title": "About me",
+        "subtitle1": "What I do",
+        "subtitle2": "How I do it",
+        "p1": "Mon domain d'expertise privilégié et le développement Front-end mais j'ai également de l'expérience en développement Full-stack, notamment avec Wordpress et NodeJS associé à MySQL ou MongoDB pour créer des bases de données."
     },
     "projects": {
-        "title": "Projets"
+        "title": "Projects",
+        "section1": {
+            "title": "Professionnels"
+        },
+        "section2": {
+            "title": "Personnels",
+            "p1": "Voici plusieurs projets de petite échelle que j'ai créé afin d'obtenir différentes accréditation de développeur Front-end ou pour mon utilisation personnelle."
+        }
     },
     "contact": {
-        "title": "Contact"
+        "title": "Contact",
+        "p1": "Si vous avez des question ou souhaitez que nous travaillions ensemble, laissez un message à l'aide du formulaire ci-dessous.",
+        "p2": "Je vous répondrez dès que possible.",
+        "send": "Envoyer"
     },
     "footer": {
     }

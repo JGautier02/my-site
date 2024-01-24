@@ -6,3 +6,5 @@ export { default as MySqlIcon } from "$lib/components/icons/mysql-icon.svelte";
 export { default as WordpressIcon } from "$lib/components/icons/wordpress-icon.svelte";
 export { default as ReactIcon } from "$lib/components/icons/react-icon.svelte";
 export { default as SvelteIcon } from "$lib/components/icons/svelte-icon.svelte";
+export { default as GithubIcon } from "$lib/components/icons/github-icon.svelte";
+export { default as LinkedIcon } from "$lib/components/icons/linkedin-icon.svelte";

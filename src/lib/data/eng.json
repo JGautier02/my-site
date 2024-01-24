@@ -11,13 +11,26 @@
         "p1": "A french web developper competent with both front-en and back-end technologies, who likes to create customised and scalable solutions for exigent clients."
     },
     "about": {
-        "title": "About"
+        "title": "About me",
+        "subtitle1": "What I do",
+        "subtitle2": "How I do it",
+        "p1": "My main area of expertise is front end development but I have full-stack experience with Wordpress and also NodeJS, mainly using MySQL and MongoDB to create databases."
     },
     "projects": {
-        "title": "Projects"
+        "title": "Projects",
+        "section1": {
+            "title": "Profesionals"
+        },
+        "section2": {
+            "title": "Personals",
+            "p1": "These are small scale projects that I worked on to pass my web developer accreditations or for my own use."
+        }
     },
     "contact": {
-        "title": "Contact"
+        "title": "Contact",
+        "p1": "If you have any question or want to work together, feel free to use the form below.",
+        "p2": "I'll get back to you as soon a possible.",
+        "send": "Send"
     },
     "footer": {
     }

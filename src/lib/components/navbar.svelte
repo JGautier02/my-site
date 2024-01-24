@@ -15,7 +15,7 @@
     export let isInView;
 
     let data;
-    let lang;
+    let lang = "English";
     let windowWidth;
     let breakPoint = 920;
     let clicked = false;
@@ -40,10 +40,12 @@
 
     const handleChangeLang = (str) => {
         if ( str === "English") {
-            langTable.set(engData)
+            langTable.set(engData);
+            lang = str;
             document.documentElement.setAttribute("lang", 'en');
         } else if (str === "Français") {
             langTable.set(fraData);
+            lang = str;
             document.documentElement.setAttribute("lang", 'fr');
         }
         currentLang.set(str);
@@ -94,7 +96,7 @@
         <li class={`nav-link ${isInView == "home" && "active"}`}>
             <a href={"#"} on:click|preventDefault={() => scrollToElement("#home")}>{data.home}</a>
         </li>
-        <li class={`nav-link ${isInView == "about" && "active"}`}>
+        <li class={`nav-link ${isInView == "about-me" && "active"}`}>
             <a href={"#"} on:click|preventDefault={() => scrollToElement("#about-me")}>{data.about}</a>
         </li>
         <li class={`nav-link ${isInView == "projects" && "active"}`}>
@@ -130,6 +132,7 @@
     </ul>
 </nav>
 {/if}
+
 <style>
 /************
 Language selection
@@ -287,9 +290,11 @@ Mobile Navbar
     .mobile-navbar .menu-container .menu-icon {
         display: flex;
         width: 80px;
+        height: 100%;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        background: #fff;
     }
 
     .mobile-navbar .menu-icon img {

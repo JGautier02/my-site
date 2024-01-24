@@ -1,17 +1,17 @@
 <script>
     import Navbar from "$lib/components/navbar.svelte";
     
-    import { fade } from "svelte/transition";
     import { inview } from "svelte-inview";
 
     import { langTable, currentLang } from "../store";
 
-    import { Css3Icon, Html5Icon, JavascriptIcon, NodeJsIcon, MySqlIcon, WordpressIcon, ReactIcon, SvelteIcon } from "$lib/components/icons/index.js";
+    import { Css3Icon, Html5Icon, JavascriptIcon, NodeJsIcon, MySqlIcon, WordpressIcon, ReactIcon, SvelteIcon, GithubIcon, LinkedIcon } from "$lib/components/icons/index.js";
 
     import axiantisImg from "$lib/assets/axiantis-screenshot.png";
 
+    import projectData from "$lib/data/data.json";
+
     let data;
-    let lang;
     let homeHeight;
     let isInView;
     const options = { threshold: 0.5 };
@@ -20,19 +20,15 @@
     let height = "36px";
 
     langTable.subscribe(value => {
-        data = value["homepage"];
+        data = value;
     });
 
-    const handleInView = (str) => {
-        isInView = str;
+    const handleEntry = ({ detail }) => {
+        isInView = detail.node.id;
     }
 
     langTable.subscribe(value => {
         data = value;
-    });
-
-    currentLang.subscribe(value => {
-        lang = value;
     });
 
     let selectedTab = "professional";
@@ -46,7 +42,6 @@
 
     const handleLabel = (e) => {
         activeInput = e.target.name;
-        console.log(activeInput);
     }
 
     const handleInput = (e) => {
@@ -60,8 +55,9 @@
         console.log(payload)
     }
 </script>
+
 <svelte:window bind:scrollY={y} />
-<section class="home" id="home" bind:clientHeight={homeHeight} use:inview={options} on:inview_enter={() => handleInView("home")}>    
+<section class="home" id="home" bind:clientHeight={homeHeight} use:inview={options} on:inview_enter={handleEntry}>    
     <div class="inner-container">
         <div class="welcome-message">
             <h2>{data.welcome.title1}</h2>
@@ -74,15 +70,15 @@
     </div>
 </section>
 
-<section class="about-me" id="about-me" use:inview={options} on:inview_enter={() => handleInView("about")}>
-    <h1>About me</h1>
+<section class="about-me" id="about-me" use:inview={options} on:inview_enter={handleEntry}>
+    <h1>{data.about.title}</h1>
     <div class="inner-container">
         <div class="intro-container">
-            <h2>What I do</h2>
-            <p>My main area of expertise is front end development but I also have full-stack experience with Wordpress and also NodeJS, mainly using MySQL and MongoDB to create databases.</p>
+            <h2>{data.about.subtitle1}</h2>
+            <p>{data.about.p1}</p>
         </div>
         <div class="skills-container">
-            <h2>How I do it</h2>
+            <h2>{data.about.subtitle2}</h2>
             <div class="wrapper">
                 <div class="flex-container">
                     <Html5Icon {width} {height} />
@@ -119,48 +115,23 @@
             </div>
         </div>
     </div>
-    
 </section>
 
-<section class="projects" id="projects" use:inview={options} on:inview_enter={() => handleInView("projects")}>
+<section class="projects" id="projects" use:inview={{ threshold: 0.3 }} on:inview_enter={handleEntry}>
     <h1>Projects</h1>
     <div class="selector-container">
         <div class="button-wrapper">
-            <button on:click={() => handleSelect("professional")}>Professional</button>
+            <button on:click={() => handleSelect("professional")}>{data.projects.section1.title}</button>
             <div class={`underline ${selectedTab === "professional" && "active"}`}></div>
         </div>
         <div class="button-wrapper">
-            <button on:click={() => handleSelect("personal")}>Personal</button>
+            <button on:click={() => handleSelect("personal")}>{data.projects.section2.title}</button>
             <div class={`underline ${selectedTab === "personal" && "active"}`}></div>
         </div>
     </div>
 
     {#if selectedTab === "professional"}
-    <div transition:fade={{ delay: 250, duration: 300 }}>
-        <div class="project-container">
-            <a class="preview" href="https://axiantis.com/" target="_blank">
-                <img src={axiantisImg} alt="Axiantis website preview" />
-            </a>
-            <div class="content">
-                <h3><a href="https://axiantis.com/" target="_blank">Axiantis</a></h3>
-                <p>Made with Sveltekit with speed and SEO in mind.</p>
-            </div>
-        </div>
-
-        <div class="separation"></div>
-
-        <div class="project-container">
-            <a class="preview" href="https://axiantis.com/" target="_blank">
-                <img src={axiantisImg} alt="Axiantis website preview" />
-            </a>
-            <div class="content">
-                <h3><a href="https://axiantis.com/" target="_blank">Axiantis</a></h3>
-                <p>Made with Sveltekit with speed and SEO in mind.</p>
-            </div>
-        </div>
-
-        <div class="separation"></div>
-
+    <div class="flex-column-container">
         <div class="project-container">
             <a class="preview" href="https://axiantis.com/" target="_blank">
                 <img src={axiantisImg} alt="Axiantis website preview" />
@@ -173,18 +144,29 @@
     </div>
 
     {:else if selectedTab === "personal"}
-    <div class="flex-column-container">
-        <div>These are personal projects that I worked on to pass my web developer accreditations or for my own use</div>
-        <div class="project-container">
-            
+    <div class="flex-column-container codepen-outer-container">
+        <p>{data.projects.section2.p1}</p>
+        <div class="flex-row-container">
+           {#each projectData as item} 
+            <div class="codepen-project-container">
+                <a href={item.url} target="_blank">
+                <img src={item.imgUrl} alt="Project preview"/>
+                <h4>{item.name}</h4>
+                <ul>
+                    {#each item.technologies as str}
+                    <li>{str}</li>
+                    {/each}
+                </ul>
+            </div>
+           {/each}
         </div>
     </div>
     {/if}
-
 </section>
 
-<section class="contact" id="contact" use:inview={options} on:inview_enter={() => handleInView("contact")}>
+<section class="contact" id="contact" use:inview={options} on:inview_enter={handleEntry}>
     <h1>Contact</h1>
+    <p>{data.contact.p1}</p>
     <form on:submit={handleSubmit}>
         <div class={`input-container ${activeInput === "name" && "active"}`}>
             <label class={activeInput === "name" || payload.name ? "active" : ""} for="name">Name</label>
@@ -198,11 +180,19 @@
 
         <textarea name="message" id="message" required on:focus={handleLabel} on:focusout={() => activeInput = ""} on:input={handleInput} value={payload["message"]} placeholder="Message" rows="5" />
 
-        <button class="btn-container" type="submit">Send</button>
+        <button class="btn-container" type="submit">{data.contact.send}</button>
     </form>
 </section>
 
 <footer>
+    <div class="socials">
+        <a href="https://github.com/Jerome-Gautier" target="_blank">
+            <GithubIcon width="24px" height="24px" />
+        </a>
+        <a href="https://www.linkedin.com/in/j%C3%A9r%C3%B4me-gautier-a0020121b/" target="_blank">
+            <LinkedIcon width="24px" height="24px" />
+        </a>
+    </div>
     <div>Built with SvelteKit ©{new Date().getFullYear()} copyright all right reserved</div>
 </footer>
 
@@ -224,6 +214,12 @@
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
+    }
+
+    .flex-row-container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
     }
 
     .home {
@@ -280,6 +276,7 @@
         align-items: center;
         min-height: 100vh;
         width: 100%;
+        padding: 80px 0;
         background: linear-gradient(to bottom, white, rgb(231, 231, 231));
     }
 
@@ -322,7 +319,8 @@
         width: 150px;
         height: 60px;
         margin: 8px;
-        border: 1px solid black;
+        background: #fff;
+        border: 2px solid black;
         border-radius: 20px;
     }
 
@@ -358,13 +356,14 @@
 
     .projects h1 {
         font-size: 32px;
-        margin-top: 48px;
+        margin-top: 108px;
         margin-bottom: 48px;
     }
 
     .projects .selector-container {
         display: flex;
         flex-flow: row nowrap;
+        margin-bottom: 24px;
     }
 
     .projects .selector-container button {
@@ -425,6 +424,50 @@
         margin: 24px 0;
     }
 
+    .projects .codepen-outer-container {
+        max-width: 1200px;
+    }
+
+    .projects .codepen-outer-container p {
+        margin: 24px 8px 0 8px;
+        font-size: 18px;
+    }
+
+    .projects .codepen-project-container {
+        width: 300px;
+        padding: 12px;
+        margin: 12px;
+        background-color: rgba(133, 133, 133, 0.7);
+        border-radius: 12px;
+        transition: all 0.4s ease-in-out;
+    }
+
+    .projects .codepen-project-container:hover {
+        transform: scale(1.1);
+    }
+
+    .projects .codepen-project-container img {
+        width: 100%;
+        height: 168.75px;
+        height: auto;
+    }
+
+    .projects .codepen-project-container h4 {
+        margin: 4px 2px;
+    }
+
+    .projects .codepen-project-container ul {
+        display: flex;
+        flex-flow: row nowrap;
+    }
+
+    .projects .codepen-project-container li {
+        background: #fff;
+        border-radius: 4px;
+        padding: 2px 4px;
+        margin: 2px 4px;
+    }
+
     /****************************
     Contact section
     ****************************/
@@ -436,13 +479,20 @@
         align-items: center;
         min-height: 100vh;
         width: 100%;
+        padding-top: 60px;
         background: var(--primary-color);
         color: #fff;
     }
 
     .contact h1 {
         font-size: 32px;
-        margin-bottom: 48px;
+        margin-bottom: 24px;
+    }
+
+    .contact p {
+        font-size: 18px;
+        margin: 0 8px 48px 8px;
+        max-width: 600px;
     }
 
     .contact form {
@@ -454,12 +504,11 @@
 
     .contact form .input-container {
         box-sizing: border-box;
-        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         height: 60px;
-        margin-bottom: 24px;
+        margin: 0 12px 24px 12px;
         padding: 8px;
         border-bottom: solid 1px #fff;
     }
@@ -469,8 +518,8 @@
     }
 
     .contact form .input-container label {
-        position: relative;
         font-size: 20px;
+        max-width: 80%;
         top: 18px;
         left: 12px;
         transition: all 0.1s linear;
@@ -485,7 +534,7 @@
     .contact form input {
         font-size: 20px;
         color: #fff;
-        background-color: transparent;
+        background: transparent;
         border: none;
     }
 
@@ -496,9 +545,10 @@
     .contact form textarea {
         font-size: 20px;
         color: #fff;
-        background-color: transparent;
+        background: transparent;
         resize: vertical;
         padding: 8px;
+        margin: 24px 12px 0 12px;
     }
 
     .btn-container {
@@ -520,8 +570,8 @@
     }
 
     .btn-container:hover {
-      background-color: rgba(128, 128, 128, 0.9);
-      color: rgb(255, 255, 255);
+        background-color: rgba(128, 128, 128, 0.9);
+        color: rgb(255, 255, 255);
     }
 
     .btn-container-waiting {
@@ -535,10 +585,10 @@
 
     footer {
         display: flex;
-        flex-flow: column nowrap;
-        justify-content: flex-end;
-        align-items: center;
-        height: 150px;
+        flex-flow: row-reverse wrap;
+        justify-content: space-evenly;
+        align-items: flex-end;
+        padding: 24px 0;
         background: #14191b;
         color: #fff;
     }
@@ -559,13 +609,26 @@
         }
 
         .projects .project-container .content h3 {
-        margin: 0;
-    }
+            margin: 0;
+        }
     }
 
     @media (max-width: 480px) {
         .welcome-message {
+            width: 100%;
             padding: 48px 12px;
+        }
+
+        .welcome-message h1 {
+            font-size: 60px;
+        }
+
+        .welcome-message h2 {
+            font-size: 48px;
+        }
+
+        .contact p {
+            text-align: center;
         }
     }
 </style>
