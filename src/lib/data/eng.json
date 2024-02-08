@@ -12,9 +12,10 @@
     },
     "about": {
         "title": "About me",
-        "subtitle1": "What I do",
-        "subtitle2": "How I do it",
-        "p1": "My main area of expertise is front end development but I have full-stack experience with Wordpress and also NodeJS, mainly using MySQL and MongoDB to create databases."
+        "subtitle1": "Personal",
+        "subtitle2": "Technical",
+        "p1": "My main area of expertise is front end development but I have full-stack experience with Wordpress and also NodeJS, mainly using MySQL and MongoDB to create databases.",
+        "p2": "I grew up and still live in the south east of France. I lived in the UK for about a year. I'm fluent in french and english and currently learning russian. I'm also a bit of gym addict, like biking and play american football at an amateur level."
     },
     "projects": {
         "title": "Projects",

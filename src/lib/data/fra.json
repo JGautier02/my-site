@@ -14,7 +14,8 @@
         "title": "About me",
         "subtitle1": "What I do",
         "subtitle2": "How I do it",
-        "p1": "Mon domain d'expertise privilégié et le développement Front-end mais j'ai également de l'expérience en développement Full-stack, notamment avec Wordpress et NodeJS associé à MySQL ou MongoDB pour créer des bases de données."
+        "p1": "Mon domaine d'expertise privilégié est le développement Front-end mais j'ai également de l'expérience en développement Full-stack, notamment avec Wordpress et NodeJS. Pour ce qui est des bases de données je manie MySQL et MongoDB.",
+        "p2": "J'ai grandi et vis actuellement dans le sud-est de la France. J'ai vécu en Angleterre pendant approximativement un an. Je parle couramment l'anglais et le français et suis actuellement une formation pour apprendre le russe. La salle de sport est presque ma deuxième maison, le vélo mon premier moyen de locomotion et je pratique le football américain dans une équipe amateur. "
     },
     "projects": {
         "title": "Projects",
@@ -28,8 +29,10 @@
     },
     "contact": {
         "title": "Contact",
-        "p1": "Si vous avez des question ou souhaitez que nous travaillions ensemble, laissez un message à l'aide du formulaire ci-dessous.",
+        "p1": "N'hésitez pas à me contacter si vous avez des questions ou souhaitez que nous travaillions ensemble.",
         "p2": "Je vous répondrez dès que possible.",
+        "name": "Nom",
+        "email": "Adresse Email",
         "send": "Envoyer"
     },
     "footer": {

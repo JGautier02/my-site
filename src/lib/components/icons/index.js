@@ -8,3 +8,6 @@ export { default as ReactIcon } from "$lib/components/icons/react-icon.svelte";
 export { default as SvelteIcon } from "$lib/components/icons/svelte-icon.svelte";
 export { default as GithubIcon } from "$lib/components/icons/github-icon.svelte";
 export { default as LinkedIcon } from "$lib/components/icons/linkedin-icon.svelte";
+export { default as WeightliftIcon } from "$lib/components/icons/weightlift-icon.svelte";
+export { default as BikeIcon } from "$lib/components/icons/bike-icon.svelte";
+export { default as FootballIcon } from "$lib/components/icons/americanfootball-icon.svelte";

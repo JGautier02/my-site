@@ -36,6 +36,8 @@
             top: offset,
             behavior: "smooth",
         });
+
+        if (isExpanded) isExpanded = false;
     }
 
     const handleChangeLang = (str) => {
@@ -54,7 +56,6 @@
     const handleClick = () => {
         clicked = !clicked;
         isExpanded = !isExpanded;
-        console.log("click")
     }
 
     const resetClicked = () => {
@@ -153,6 +154,7 @@ Language selection
         align-items: center;
         font-size: 16px;
         height: 48px;
+        padding: 16px;
         border: none;
         background-color: transparent;
     }
@@ -176,7 +178,7 @@ Language selection
 
     .lang-dropdown .dropdown-content button {
         color: black;
-        padding: 8px;
+        padding: 8px ;
         text-decoration: none;
         display: block;
         cursor: pointer;
@@ -219,7 +221,7 @@ Navbar
         justify-content: center;
         height: 220px;
         width: 100px;
-        transition: height 0.5s ease-in-out;
+        transition: height 0.4s ease-in-out;
     }
 
     .navbar ul {
@@ -312,7 +314,8 @@ Mobile Navbar
         top: -120px;
         left: 0;
         transition: all 0.4s ease-in-out;
-        background: grey;
+        background: #fff;
+        color: #0c0c0c;
     }
 
     .mobile-navbar ul.active {

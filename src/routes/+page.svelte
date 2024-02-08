@@ -3,9 +3,9 @@
     
     import { inview } from "svelte-inview";
 
-    import { langTable, currentLang } from "../store";
+    import { langTable } from "../store";
 
-    import { Css3Icon, Html5Icon, JavascriptIcon, NodeJsIcon, MySqlIcon, WordpressIcon, ReactIcon, SvelteIcon, GithubIcon, LinkedIcon } from "$lib/components/icons/index.js";
+    import { Css3Icon, Html5Icon, JavascriptIcon, NodeJsIcon, MySqlIcon, WordpressIcon, ReactIcon, SvelteIcon, GithubIcon, LinkedIcon, FootballIcon, WeightliftIcon, BikeIcon } from "$lib/components/icons/index.js";
 
     import axiantisImg from "$lib/assets/axiantis-screenshot.png";
 
@@ -73,12 +73,9 @@
 <section class="about-me" id="about-me" use:inview={options} on:inview_enter={handleEntry}>
     <h1>{data.about.title}</h1>
     <div class="inner-container">
-        <div class="intro-container">
-            <h2>{data.about.subtitle1}</h2>
-            <p>{data.about.p1}</p>
-        </div>
         <div class="skills-container">
             <h2>{data.about.subtitle2}</h2>
+            <p>{data.about.p1}</p>
             <div class="wrapper">
                 <div class="flex-container">
                     <Html5Icon {width} {height} />
@@ -111,6 +108,22 @@
                 <div class="flex-container">
                     <WordpressIcon {width} {height} />
                     <div>WORDPRESS</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-container">
+            <h2>{data.about.subtitle1}</h2>
+            <p>{data.about.p2}</p>
+            <div class="flex-row-container">
+                <div>
+                    <BikeIcon width="72px" height="72px" />
+                </div>
+                <div>
+                    <WeightliftIcon width="72px" height="72px" />
+                </div>
+                <div>
+                    <FootballIcon width="72px" height="72px" />
                 </div>
             </div>
         </div>
@@ -295,13 +308,23 @@
         align-items: flex-start;
         justify-content: center;
         flex-flow: row wrap;
+        margin: 12px;
     }
 
     .about-me .intro-container {
         display: flex;
         flex-flow: column nowrap;
         max-width: 600px;
-        margin: 12px 8px;
+        margin: 0 12px;
+    }
+
+    .about-me .intro-container .flex-row-container div {
+        padding: 24px;
+    }
+
+    .about-me .skills-container p {
+        max-width: 600px;
+        margin: 0 12px;
     }
 
     .about-me .skills-container .wrapper {
@@ -309,6 +332,7 @@
         flex-flow: row wrap;
         justify-content: center;
         max-width: 600px;
+        margin: 12px 0;
     }
 
     .about-me .flex-container {
@@ -325,7 +349,7 @@
     }
 
     .about-me p {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
     }
 
     .about-me .flex-container div {
@@ -429,7 +453,7 @@
     }
 
     .projects .codepen-outer-container p {
-        margin: 24px 8px 0 8px;
+        margin: 24px 8px 12px 8px;
         font-size: 18px;
     }
 
@@ -503,6 +527,7 @@
     }
 
     .contact form .input-container {
+        position: relative;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -518,6 +543,7 @@
     }
 
     .contact form .input-container label {
+        position: absolute;
         font-size: 20px;
         max-width: 80%;
         top: 18px;
@@ -527,8 +553,8 @@
 
     .contact form label.active {
         font-size: 16px;
-        top: 0;
-        left: 0;
+        top: 8px;
+        left: 8px;
     }
 
     .contact form input {
