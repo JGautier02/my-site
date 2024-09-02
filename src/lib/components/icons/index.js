@@ -11,3 +11,7 @@ export { default as LinkedIcon } from "$lib/components/icons/linkedin-icon.svelt
 export { default as WeightliftIcon } from "$lib/components/icons/weightlift-icon.svelte";
 export { default as BikeIcon } from "$lib/components/icons/bike-icon.svelte";
 export { default as FootballIcon } from "$lib/components/icons/americanfootball-icon.svelte";
+export { default as VsCodeIcon } from "$lib/components/icons/vscode-icon.svelte";
+export { default as SqlIcon } from "$lib/components/icons/sql-icon.svelte";
+export { default as SolidJsIcon } from "$lib/components/icons/solidjs-icon.svelte";
+export { default as MongoDbIcon } from "$lib/components/icons/mongodb-icon.svelte";

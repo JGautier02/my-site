@@ -2,20 +2,14 @@
     import { onMount } from "svelte";
 
     import menuIcon from "$lib/assets/menu-icon.png";
-    import ukLogo from "$lib/assets/united-kingdom.png";
-    import frLogo from "$lib/assets/france.png";
 
-    import { langTable, currentLang } from "../../store";
-
-    import engData from "$lib/data/eng.json";
-    import fraData from "$lib/data/fra.json";
+    import { langTable } from "../../store";
 
     export let homeHeight;
     export let y;
     export let isInView;
 
     let data;
-    let lang = "English";
     let windowWidth;
     let breakPoint = 920;
     let clicked = false;
@@ -38,19 +32,6 @@
         });
 
         if (isExpanded) isExpanded = false;
-    }
-
-    const handleChangeLang = (str) => {
-        if ( str === "English") {
-            langTable.set(engData);
-            lang = str;
-            document.documentElement.setAttribute("lang", 'en');
-        } else if (str === "Français") {
-            langTable.set(fraData);
-            lang = str;
-            document.documentElement.setAttribute("lang", 'fr');
-        }
-        currentLang.set(str);
     }
     
     const handleClick = () => {
@@ -75,27 +56,15 @@
 </script>
 
 <svelte:window on:resize={handleResize}/>
-<div class="lang-dropdown">
-    <button class="dropbtn">
-        <img src={lang === "English" ? ukLogo : frLogo} width="20px" height="auto" alt="flag">
-    </button>
-    <div class="dropdown-content">
-        <button class={lang === "English" && "inactive"} on:click={() => handleChangeLang("English")}>
-            <div>English</div>
-            <img src={ukLogo} width="24px" height="auto" alt="British flag">
-        </button>
-        <button class={lang === "Français" && "inactive"} on:click={() => handleChangeLang("Français")}>
-            <div>Français</div>
-            <img src={frLogo} width="24px" height="auto" alt="French flag">
-        </button>
-    </div>
-</div>
 
 {#if windowWidth >= breakPoint}
-<nav class={ (2 / 3) * homeHeight > y ? "navbar" : "navbar-sticky"}>
+<nav class={`navbar ${isInView === "hero-section" ? null : "sticky"}`}>
+    <a class="title-container" href={"#"} on:click|preventDefault={() => scrollToElement("#hero-section")}>
+        <span class={isInView !== "hero-section" && "golden"}>J</span><span class={`dis-span-1 ${isInView !== "hero-section" && "inactive"}`}>érôme</span>
+        <span class={`transleft ${isInView !== "hero-section" && "active golden"}`}>G</span><span class={`dis-span-2 ${isInView !== "hero-section" && "inactive"}`}>autier</span></a>
     <ul>
-        <li class={`nav-link ${isInView == "home" && "active"}`}>
-            <a href={"#"} on:click|preventDefault={() => scrollToElement("#home")}>{data.home}</a>
+        <li class={`nav-link ${isInView == "hero-section" && "active"}`}>
+            <a href={"#"} on:click|preventDefault={() => scrollToElement("#hero-section")}>{data.home}</a>
         </li>
         <li class={`nav-link ${isInView == "about-me" && "active"}`}>
             <a href={"#"} on:click|preventDefault={() => scrollToElement("#about-me")}>{data.about}</a>
@@ -119,7 +88,7 @@
     </div>
     <ul class={isExpanded && "active"}>
         <li class={`nav-link ${isInView == "home" && "active"}`}>
-            <a href={"#"} on:click|preventDefault={() => scrollToElement("#home")}>{data.home}</a>
+            <a href={"#"} on:click|preventDefault={() => scrollToElement("#hero-section")}>{data.home}</a>
         </li>
         <li class={`nav-link ${isInView == "about" && "active"}`}>
             <a href={"#"} on:click|preventDefault={() => scrollToElement("#about-me")}>{data.about}</a>
@@ -136,125 +105,89 @@
 
 <style>
 /************
-Language selection
-************/
-    .lang-dropdown {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 0;
-        right: 20px;
-        height: 60px;
-    }
-
-    .lang-dropdown .dropbtn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 16px;
-        height: 48px;
-        padding: 16px;
-        border: none;
-        background-color: transparent;
-    }
-
-    .lang-dropdown .dropbtn img {
-        width: 20px;
-        height: auto,
-    }
-
-    .lang-dropdown .dropdown-content {
-        display: none;
-        position: absolute;
-        min-width: 100px;
-        font-size: 16px;
-        top: 60px;
-        right: -10px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        background-color: #f0f0f0;
-    }
-
-    .lang-dropdown .dropdown-content button {
-        color: black;
-        padding: 8px ;
-        text-decoration: none;
-        display: block;
-        cursor: pointer;
-    }
-
-    .lang-dropdown .dropdown-content button:hover {
-        background-color: #ddd;
-    }
-
-    .lang-dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    .lang-dropdown:hover .dropdown-content button {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-
-    .lang-dropdown .dropdown-content button.inactive {
-        pointer-events: none;
-        position: relative;
-        background-color: #ddd;
-    }
-
-/************
 Navbar
 ************/
     nav {
-        background-color: var(--primary-color);
-        color: #fff;
+        position: absolute;
+        background-color: transparent;
+        color: var(--primary-text);
         font-size: 18px;
     }
 
     .navbar {
         display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        height: 220px;
-        width: 100px;
-        transition: height 0.4s ease-in-out;
-    }
-
-    .navbar ul {
-        display: flex;
-        flex-flow: column wrap;
-        justify-content: space-evenly;
-        height: 100%;
-    }
-
-    .navbar-sticky {
-        top: 0;
-        right: 0;
-        position: fixed;
-        display: flex;
         flex-flow: row nowrap;
-        justify-content:flex-end;
-        align-items: center;
+        justify-content: space-between;
+        align-items: flex-end;
         width: 100%;
-        height: 60px;
+        max-width: 1900px;
+        height: 80px;
         z-index: 1000;
         text-align: center;
     }
 
-    .navbar-sticky ul {
-        display: flex;
-        justify-content: center;
+    .navbar.sticky {
+        position: fixed;
         align-items: center;
-        flex-flow: row nowrap;
-        margin-right: 5%;
-        height: 100%;
+        height: 40px;
+        background: linear-gradient(135deg, black 8%, var(--midnight-purple) 15%, black 90%);
     }
 
-    .navbar-sticky .nav-link {
+    .navbar .title-container {
+        font-family: "playfairregular", sans-serif;
+        font-size: 48px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        color: var(--primary-text);
+        padding: 0 80px;
+        transition: all 0.3s linear;
+    }
+
+    .navbar .title-container span {
+        display: inline-block;
+    }
+
+    .navbar .title-container span.golden {
+        font-size: 32px;
+        color: goldenrod;
+        transform: translateY(-8px);
+    }
+
+    .navbar .title-container .transleft {
+        transition: all 0.3s linear;
+    }
+
+    .navbar .title-container .transleft.active {
+        color: goldenrod;
+        transform: translateX(-160px);
+    }
+
+    .navbar .title-container .dis-span-1 {
+        transition: all 0.3s linear;
+    }
+    .navbar .title-container .dis-span-1.inactive {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+
+    .navbar .title-container .dis-span-2 {
+        transition: all 0.3s linear;
+    }
+
+    .navbar .title-container .dis-span-2.inactive {
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+
+    .navbar ul {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        height: 100%;
+        padding: 0 24px;
+    }
+
+    .navbar .nav-link {
         display: flex;
         flex-flow: row nowrap;
         justify-content: center;
@@ -263,9 +196,9 @@ Navbar
         height: 100%;
     }
 
-    .navbar-sticky .nav-link.active {
-        background-color: #fff;
-        color: var(--tertiary-text);
+    .navbar .nav-link.active {
+        text-decoration: underline var(--aqua-green) 2px;
+        text-underline-offset: 8px;;
     }
 
     nav a:hover {
@@ -285,7 +218,7 @@ Mobile Navbar
         height: 60px;
         top: 0;
         left: 0;
-        background-color: var(--primary-color);
+        background-color: transparent;
         z-index: 1000;
     }
 
@@ -311,15 +244,17 @@ Mobile Navbar
         justify-content: center;
         align-items: center;
         width: 100%;
-        top: -120px;
+        top: -220px;
         left: 0;
+        padding-top: 60px;
         transition: all 0.4s ease-in-out;
         background: #fff;
         color: #0c0c0c;
+        z-index: 100;
     }
 
     .mobile-navbar ul.active {
-        top: 60px;
+        top: 0;
     }
 
     .mobile-navbar ul .nav-link {
@@ -327,14 +262,5 @@ Mobile Navbar
         justify-content: center;
         align-items: center;
         height: 40px;
-    }
-
-    @media (max-width: 920px) {
-        .lang-dropdown {
-            position: fixed;
-            top: 0;
-            right: 100px;
-            z-index: 1001;
-        }
     }
 </style>

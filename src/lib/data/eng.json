@@ -8,19 +8,19 @@
     "welcome": {
         "title1": "Welcome, I am",
         "title2": "Jérôme Gautier",
-        "p1": "A french web developper competent with both front-en and back-end technologies, who likes to create customised and scalable solutions for exigent clients."
+        "p1": "A french web developper competent with both front-end and back-end technologies, who likes to create customised and scalable solutions for exigent clients."
     },
     "about": {
         "title": "About me",
         "subtitle1": "Personal",
         "subtitle2": "Technical",
         "p1": "My main area of expertise is front end development but I have full-stack experience with Wordpress and also NodeJS, mainly using MySQL and MongoDB to create databases.",
-        "p2": "I grew up and still live in the south east of France. I lived in the UK for about a year. I'm fluent in french and english and currently learning russian. I'm also a bit of gym addict, like biking and play american football at an amateur level."
+        "p2": "I grew up and still live in the south east of France. I lived in the UK for about a year. I'm fluent in french and english and currently learning russian. I'm also a bit of gym addict, like biking and play american football for an amateur team."
     },
     "projects": {
         "title": "Projects",
         "section1": {
-            "title": "Profesionals"
+            "title": "Professionals"
         },
         "section2": {
             "title": "Personals",

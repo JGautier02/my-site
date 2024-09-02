@@ -1,3 +1,8 @@
+<svelte:head>
+    <title>Jerome Gautier Fullstack Web Developper</title>
+    <meta name="description" content="I am Jérôme Gautier a French Fullstack webdevelopper, I'm competent with Wordpress and most nodejs based frameworks.">
+</svelte:head>
+
 <script>
     import Navbar from "$lib/components/navbar.svelte";
     
@@ -5,11 +10,15 @@
 
     import { langTable } from "../store";
 
-    import { Css3Icon, Html5Icon, JavascriptIcon, NodeJsIcon, MySqlIcon, WordpressIcon, ReactIcon, SvelteIcon, GithubIcon, LinkedIcon, FootballIcon, WeightliftIcon, BikeIcon } from "$lib/components/icons/index.js";
+    import { Css3Icon, Html5Icon, JavascriptIcon, NodeJsIcon, MySqlIcon, WordpressIcon, ReactIcon, SvelteIcon, GithubIcon, LinkedIcon, FootballIcon, WeightliftIcon, BikeIcon, VsCodeIcon } from "$lib/components/icons/index.js";
 
     import axiantisImg from "$lib/assets/axiantis-screenshot.png";
-
     import projectData from "$lib/data/data.json";
+    import Lang from "$lib/components/lang.svelte";
+    import LinkedinIcon from "$lib/components/icons/linkedin-icon.svelte";
+    import SqlIcon from "$lib/components/icons/sql-icon.svelte";
+    import SolidjsIcon from "$lib/components/icons/solidjs-icon.svelte";
+    import MongodbIcon from "$lib/components/icons/mongodb-icon.svelte";
 
     let data;
     let homeHeight;
@@ -37,7 +46,7 @@
         selectedTab = str;
     }
 
-    let payload = { name: "", email: "", message: "" };
+    let payload = { name: "", email: "", subject: "", body: "" };
     let activeInput;
 
     const handleLabel = (e) => {
@@ -50,88 +59,154 @@
         payload[name] = str;
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(payload)
+        const response = await fetch("/", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                name: payload.name,
+                email: payload.email,
+                subject: payload.subject,
+                body: payload.body
+            })
+        });
+        const result = await response.json();
+        console.log(result);
+
     }
 </script>
 
 <svelte:window bind:scrollY={y} />
-<section class="home" id="home" bind:clientHeight={homeHeight} use:inview={options} on:inview_enter={handleEntry}>    
-    <div class="inner-container">
-        <div class="welcome-message">
-            <h2>{data.welcome.title1}</h2>
-            <h1>{data.welcome.title2}</h1>
-            <p>{data.welcome.p1}</p>
-        </div>
+<Navbar homeHeight={homeHeight} y={y} isInView={isInView} />
 
-        <Navbar homeHeight={homeHeight} y={y} isInView={isInView} />
-
+<div class="hero-container flex-column-center" id="hero-section" use:inview={options} on:inview_enter={handleEntry}>
+    <div class="intro-container flex-column-center">
+        <h1>Designer & Fullstack Developper</h1>
+        <h2>I like to create efficient and user-friendly products.</h2>
     </div>
-</section>
+    <div class="under-container">
+        <div class="lang-container flex-column-center">
+            <h3>Language selection</h3>
+            <Lang />
+        </div>
+        <div class="socials-container flex-row-center">
+            <a href="https://www.linkedin.com/in/j%C3%A9r%C3%B4me-gautier-a0020121b/" target="_blank">
+                <LinkedinIcon width="40px" height="40" />
+            </a>
+            <a href="https://github.com/Jerome-Gautier" target="_blank">
+                <GithubIcon width="40" height="40"/>
+            </a>
+        </div>
+    </div>
+
+</div>
 
 <section class="about-me" id="about-me" use:inview={options} on:inview_enter={handleEntry}>
-    <h1>{data.about.title}</h1>
-    <div class="inner-container">
-        <div class="skills-container">
-            <h2>{data.about.subtitle2}</h2>
-            <p>{data.about.p1}</p>
-            <div class="wrapper">
-                <div class="flex-container">
-                    <Html5Icon {width} {height} />
-                    <div>HTML 5</div>
-                </div>
-                <div class="flex-container">
-                    <Css3Icon {width} {height} />
-                    <div>CSS 3</div>
-                </div>
-                <div class="flex-container">
-                    <JavascriptIcon {width} {height} />
-                    <div>JAVASCRIPT</div>
-                </div>
-                <div class="flex-container">
-                    <NodeJsIcon {width} {height} />
-                    <div>NODE JS</div>
-                </div>
-                <div class="flex-container">
-                    <ReactIcon {width} {height} />
-                    <div>REACT</div>
-                </div>
-                <div class="flex-container">
-                    <SvelteIcon {width} {height} />
-                    <div>SVELTE</div>
-                </div>
-                <div class="flex-container">
-                    <MySqlIcon {width} {height} />
-                    <div>MYSQL</div>
-                </div>
-                <div class="flex-container">
-                    <WordpressIcon {width} {height} />
-                    <div>WORDPRESS</div>
-                </div>
-            </div>
+        <div class="aboutme-intro-container">
+            <h2>Who I am and what I do</h2>
+            <h3>
+                I grew up and still live in the south east of France, I lived in the UK for about a year and I'm fluent in french, english and currently learning russian.
+                I love coding and I love Javascript, when it comes to building applications my approach is holistic and I take into account user-readability, scale, performance and SEO.
+            </h3>
         </div>
 
-        <div class="intro-container">
-            <h2>{data.about.subtitle1}</h2>
-            <p>{data.about.p2}</p>
-            <div class="flex-row-container">
-                <div>
-                    <BikeIcon width="72px" height="72px" />
+        <div class="skills-container">
+            <div class="frontend-container">
+                <div class="intro-container">
+                    <h3>Frontend</h3>
+                    <p>My preference is to code things from the ground up but I'm also well versed in Wordpress.</p>  
                 </div>
-                <div>
-                    <WeightliftIcon width="72px" height="72px" />
+                <div class="codelang-container">
+                    <h4>Languages</h4>
+                    <ul>
+                        <li class="skill-flex-container">
+                            <Html5Icon {width} {height} />
+                            <p>Html 5</p>
+                        </li>
+                        <li class="skill-flex-container">
+                            <Css3Icon {width} {height} />
+                            <p>Css 3</p>
+                        </li>
+                        <li class="skill-flex-container">
+                            <JavascriptIcon {width} {height} />
+                            <p>Javascript</p>
+                        </li>
+                    </ul>
                 </div>
-                <div>
-                    <FootballIcon width="72px" height="72px" />
+                <div class="codelang-container">
+                    <h4>Favourite tools</h4>
+                    <ul>
+                        <li class="skill-flex-container">
+                            <ReactIcon {width} {height} />
+                            <p>React</p>
+                        </li>
+                        <li class="skill-flex-container">
+                            <SolidjsIcon {width} {height} />
+                            <p>SolidJs</p>
+                        </li>
+                        <li class="skill-flex-container">
+                            <SvelteIcon {width} {height} />
+                            <p>Svelte</p>
+                        </li>
+                        <div class="skill-flex-container">
+                            <WordpressIcon {width} {height} />
+                            <p>Wordpress</p>
+                        </div>
+                        <li class="skill-flex-container">
+                            <GithubIcon {width} {height} />
+                            <p>Github</p>
+                        </li>
+                        <li class="skill-flex-container">
+                            <VsCodeIcon {width} {height} />
+                            <p>Vs Code</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="backend-container">
+                <div class="intro-container">
+                    <h3>Backend</h3>
+                    <p>I have all the right tools to build fast, efficient and secured servers, and i can provide robusts databases with MySQL when needed.</p>
+                </div>
+                <div class="codelang-container">
+                    <h4>Languages</h4>
+                    <ul>
+                        <li class="skill-flex-container">
+                            <SqlIcon {width} {height} />
+                            <p>SQL</p>
+                        </li>
+                        <li class="skill-flex-container">
+                            <JavascriptIcon {width} {height} />
+                            <p>Javascript</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="codelang-container">
+                    <h4>Favourite tools</h4>
+                    <ul>
+                        <li class="skill-flex-container">
+                            <NodeJsIcon {width} {height} />
+                            <p>Node Js</p>
+                        </li>
+                        <li class="skill-flex-container">
+                            <MySqlIcon {width} {height} />
+                            <p>MySQL</p>
+                        </li>
+                        <li class="skill-flex-container">
+                            <MongodbIcon {width} {height} />
+                            <p>MobgoDB</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
 <section class="projects" id="projects" use:inview={{ threshold: 0.3 }} on:inview_enter={handleEntry}>
-    <h1>Projects</h1>
+    <h1>Recent Projects</h1>
     <div class="selector-container">
         <div class="button-wrapper">
             <button on:click={() => handleSelect("professional")}>{data.projects.section1.title}</button>
@@ -191,7 +266,12 @@
             <input type="email" id="email" name="email" required on:focus={handleLabel} on:focusout={() => activeInput = ""} on:input={handleInput} autocomplete="off" value={payload["email"]} />
         </div>
 
-        <textarea name="message" id="message" required on:focus={handleLabel} on:focusout={() => activeInput = ""} on:input={handleInput} value={payload["message"]} placeholder="Message" rows="5" />
+        <div class={`input-container ${activeInput === "subject" && "active"}`}>
+            <label class={activeInput === "subject" || payload.email ? "active" : ""} for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required on:focus={handleLabel} on:focusout={() => activeInput = ""} on:input={handleInput} autocomplete="off" value={payload["email"]} />
+        </div>
+
+        <textarea name="body" id="body" required on:focus={handleLabel} on:focusout={() => activeInput = ""} on:input={handleInput} value={payload["body"]} placeholder="Message" rows="5" />
 
         <button class="btn-container" type="submit">{data.contact.send}</button>
     </form>
@@ -216,150 +296,204 @@
     }
 
     :root {
-        --primary-color: #1F2041;
+        --aqua-green: #4EB5A9;
+        --midnight-purple: #2F284F;
+        --royal-blue: #6157E1;
+        --slate-grey: #374854;
         --primary-text: #fff;
-        --secondary-text: #14191b;
-        --tertiary-text: #FFC857;
+        --secondary-text: #141c3a;       
     }
 
-    .flex-column-container {
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
+    /****************************
+    Hero section
+    ****************************/
+    .hero-container {
+        position: relative;
+        background: linear-gradient(-30deg, var(--midnight-purple), black 40% 60%, var(--midnight-purple));
+        background-size: 100% 100%;
+        animation: gradient 60s linear infinite;
+        height: 100vh;
     }
 
-    .flex-row-container {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
+    .hero-container .intro-container {
+        position: relative;
+         margin: auto;
+         color: #fff;
+         background-color: rgba(0, 0, 0, 0.5);
+         margin-top: 150px;
+         max-width: 1000px;
+         height: 400px;
+         padding: 12px;
+         border-radius: 15px;
     }
 
-    .home {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-evenly;
-        align-items: center;
-        min-height: 100vh;
-        width: 100%;
-        background-color: var(--primary-color);
-        color: var(--primary-text);
+    .hero-container .intro-container h1 {
+        font-family: "latoregular", sans-serif;
+        font-size: 3rem;
+        font-weight: 800;
+        color: white;
+        line-height: 1.125;
+        letter-spacing: 0.3rem;
+        text-align: center;
     }
 
-    .home .inner-container {
+    .hero-container .intro-container h2 {
+        font-family: "latoregular", sans-serif;
+        font-size: 1.5rem;
+        color: var(--aqua-green);
+        line-height: 1.525;
+        letter-spacing: 0.2rem;
+        text-align: center;
+        margin-top: 24px
+    }
+
+    .hero-container .under-container {
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        max-width: 1000px;
+        max-width: 850px;
+        height: 400px;
+        margin: auto;
+        color: #fff;
     }
 
-    .welcome-message {
-        max-width: 700px;
-        border-width: 4px;
-        border-style: solid;
-        border-image: linear-gradient(to left, transparent, var(--tertiary-text)) 1;
-        padding: 96px 48px;
-    }
-    
-    .welcome-message h1 {
-        font-size: 72px;
-        text-transform: uppercase;
+    .hero-container .lang-container {
+        display: flex;
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 250px;
+        height: 250px;
+        border: 1px solid var(--royal-blue);
+        border-radius: 8px;
     }
 
-    .welcome-message h2 {
-        font-size: 60px;
+    .hero-container .socials-container {
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 250px;
+        height: 250px;
+        border: 1px solid var(--royal-blue);
+        border-radius: 8px;
     }
 
-    .welcome-message p {
-        font-size: 18px;
-        line-height: 28px;
-        margin-top: 12px;
+    .hero-container .socials-container a {
+        margin: 12px;
+        transition: all 0.4s ease-in-out;
+    }
+
+    .hero-container .socials-container a:hover {
+        color: var(--aqua-green)
     }
 
     /****************************
     About me section
     ****************************/
-
-    .about-me {
+    .about-me .codelang-container ul {
         display: flex;
         flex-flow: column wrap;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        width: 100%;
-        padding: 80px 0;
-        background: linear-gradient(to bottom, white, rgb(231, 231, 231));
+        height: 200px;
     }
 
-    .about-me h1 {
-        font-size: 32px;
-        margin-bottom: 48px;
-    }
-
-    .about-me h2 {
-        text-align: center;
-        margin: 12px 0;
-    }
-
-    .about-me .inner-container {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        flex-flow: row wrap;
-        margin: 12px;
-    }
-
-    .about-me .intro-container {
-        display: flex;
-        flex-flow: column nowrap;
-        max-width: 600px;
-        margin: 0 12px;
-    }
-
-    .about-me .intro-container .flex-row-container div {
-        padding: 24px;
-    }
-
-    .about-me .skills-container p {
-        max-width: 600px;
-        margin: 0 12px;
-    }
-
-    .about-me .skills-container .wrapper {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
-        max-width: 600px;
-        margin: 12px 0;
-    }
-
-    .about-me .flex-container {
+    .about-me .skill-flex-container {
         display: flex;
         flex-flow: row nowrap;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        width: 150px;
-        height: 60px;
-        margin: 8px;
-        background: #fff;
-        border: 2px solid black;
-        border-radius: 20px;
+        height: 40px;
+        max-width: 180px;
+        margin: 12px auto 12px auto;
     }
 
-    .about-me p {
+    .about-me .skill-flex-container p {
+        font-size: 16px;
+        width: 100px;
+        text-align: center;
+    }
+
+    .about-me .aboutme-intro-container {
+        height: 600px;
+        max-width: 100%;
+        text-align: center;
+        font-size: 1.5rem;
+        margin: auto;
+        background-color: var(--aqua-green)
+    }
+
+    .about-me .aboutme-intro-container h2 {
+
+    }
+
+    .about-me .aboutme-intro-container h3 {
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .about-me .aboutme-intro-container h2 {
+        padding-top: 200px;
+        margin-bottom: 1.5rem;
+        font-family: "latoregular", sans-serif;
+        font-weight: 600;
+    }
+
+    .about-me .aboutme-intro-container h3 {
         font-size: 1.25rem;
+        font-family: "roboto", sans-serif;
+        font-weight: 400;
+        letter-spacing: 1px;
     }
 
-    .about-me .flex-container div {
-        margin-left: 4px;
+    .about-me .skills-container {
+        display: flex;
+        flex-flow: row wrap;
+        max-width: 1000px;
+        margin: -100px auto 0 auto;
+        text-align: center;
+        color: #fff;
+        border-radius: 12px;
+    }
+
+    .about-me .skills-container .intro-container p {
+        font-family: "roboto", sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+
+    .about-me .skills-container .frontend-container {
+        width: 50%;
+        padding: 70px 45px;
+        background: linear-gradient(to right, black, var(--midnight-purple) 10% 90%, black);
+        box-sizing: border-box;
+        border-top-left-radius: 24px;
+    }
+
+    .about-me .skills-container .frontend-container h3 {
+        font-family: "roboto", sans-serif;
+        font-size: 1.5rem;
+        margin: 24px;
+        letter-spacing: 0.25rem;
+        font-weight: 600;
+    }    
+
+    .about-me .skills-container .backend-container {
+        width: 50%;
+        padding: 70px 45px;
+        background: linear-gradient(to right, black, var(--midnight-purple) 10% 90%, black);
+        box-sizing: border-box;
+        border-top-right-radius: 24px;
+    }
+
+    .about-me .skills-container .backend-container h3 {
+        font-family: "roboto", sans-serif;
+        font-size: 1.5rem;
+        margin: 24px;
+        letter-spacing: 0.25rem;
+        font-weight: 600;
     }
 
     /****************************
     Projects section
     ****************************/
-
     .projects {
         display: flex;
         flex-flow: column nowrap;
@@ -546,12 +680,12 @@
         position: absolute;
         font-size: 20px;
         max-width: 80%;
-        top: 18px;
+        top: 30px;
         left: 12px;
         transition: all 0.1s linear;
     }
 
-    .contact form label.active {
+    .contact form .input-container label.active {
         font-size: 16px;
         top: 8px;
         left: 8px;
@@ -626,8 +760,18 @@
     }
 
     @media (max-width: 920px) {
-        .home .inner-container {
-            justify-content: center;
+        .about-me .skills-container .frontend-container {
+            width: 100%;
+            max-width: 640px;
+            border-radius: 12px;
+            margin: 48px auto 48px auto;
+        }
+
+        .about-me .skills-container .backend-container {
+            width: 100%;
+            max-width: 640px;
+            border-radius: 12px;
+            margin: 48px auto 48px auto;
         }
 
         .projects .project-container .preview {
@@ -643,14 +787,6 @@
         .welcome-message {
             width: 100%;
             padding: 48px 12px;
-        }
-
-        .welcome-message h1 {
-            font-size: 60px;
-        }
-
-        .welcome-message h2 {
-            font-size: 48px;
         }
 
         .contact p {
